@@ -20,18 +20,57 @@
 
 
 /* Manufacturer */
-#define MFG_LNX1 'L'
-#define MFG_LNX2 'N'
-#define MFG_LNX3 'X'
+#define MFG_LNX1 'T'
+#define MFG_LNX2 'O'
+#define MFG_LNX3 'S'
 #define SERIAL 0
-#define YEAR 2012
-#define WEEK 5
+#define YEAR 2017
+#define WEEK 12
 
 /* EDID 1.3 standard definitions */
 #define XY_RATIO_16_10	0b00
 #define XY_RATIO_4_3	0b01
 #define XY_RATIO_5_4	0b10
 #define XY_RATIO_16_9	0b11
+
+/* Provide defaults for video type */
+#ifndef VIDEO_TYPE_DIGITAL
+#define VIDEO_TYPE_DIGITAL 1
+#endif
+
+#if VIDEO_TYPE_DIGITAL==1
+
+/* bit 6-4: bit depth
+            000 = undefined
+            001 = 6 
+            010 = 8 
+            011 = 10
+            100 = 12
+            101 = 14
+            110 = 16 bits per color
+            111 = reserved */
+/* bit 3-0: video interface
+            0000 = undefined 
+            0010 = HDMIa
+            0011 = HDMIb
+            0100 = MDDI
+            0101 = DisplayPort */
+#define VIDEO_PARAMS (VIDEO_TYPE_DIGITAL<<7)|0x20
+#else
+/* bit 6-5: video white and sync levels relative to blank */
+/* bit 4: Blank-to-black setup (pedestal) expected */
+/* bit 3: Separate sync supported */
+/* bit 2: Composite sync (on HSync) supported */
+/* bit 1: Sync on green supported */
+/* bit 0: VSync pulse must be serrated when composite or sync-on-green is used */
+#define VIDEO_PARAMS 0x6d
+#endif
+
+#define DPMS_SUPPORT 0x00
+
+#ifndef DPMS_SUPPORT
+#define DPMS_SUPPORT 0xe0
+#endif
 
 /* Provide defaults for the timing bits */
 #ifndef ESTABLISHED_TIMING1_BITS
@@ -50,8 +89,12 @@
 #define lsbs2(v1,v2) (((v1&0x0f)<<4)+(v2&0x0f))
 #define msbs2(v1,v2) ((((v1>>8)&0x0f)<<4)+((v2>>8)&0x0f))
 #define msbs4(v1,v2,v3,v4) \
+<<<<<<< HEAD
 	((((v1>>8)&0x03)<<6)+(((v2>>8)&0x03)<<4)+\
 	(((v3>>4)&0x03)<<2)+((v4>>4)&0x03))
+=======
+	(((v1&0x300)>>2)|((v2&0x300)>>4)|((v3&0x300)>>6)|((v4&0x300)>>8))
+>>>>>>> zigmars/master
 #define pixdpi2mm(pix,dpi) ((pix*25)/dpi)
 #define xsize pixdpi2mm(XPIX,DPI)
 #define ysize pixdpi2mm(YPIX,DPI)
@@ -63,7 +106,7 @@ header:		.byte	0x00,0xff,0xff,0xff,0xff,0xff,0xff,0x00
 
 mfg_id:		.hword	swap16(mfgname2id(MFG_LNX1, MFG_LNX2, MFG_LNX3))
 
-prod_code:	.hword	0
+prod_code:	.hword	1
 
 /* Serial number. 32 bits, little endian. */
 serial_number:	.long	SERIAL
@@ -92,7 +135,7 @@ revision:	.byte	REVISION	/* EDID revision, usually 3 (for 1.3) */
    Bit 1	Sync on green supported
    Bit 0	VSync pulse must be serrated when somposite or
 		  sync-on-green is used. */
-video_parms:	.byte	0x6d
+video_parms:	.byte	VIDEO_PARAMS
 
 /* Maximum horizontal image size, in centimetres
    (max 292 cm/115 in at 16:9 aspect ratio) */
@@ -108,13 +151,22 @@ gamma:		.byte	120
 /* Bit 7	DPMS standby supported
    Bit 6	DPMS suspend supported
    Bit 5	DPMS active-off supported
-   Bits 4-3	Display type: 00=monochrome; 01=RGB colour;
-		  10=non-RGB multicolour; 11=undefined
+   Bits 4-3	Display type: 
+   Digital:
+            00 = RGB 4:4:4
+            01 = RGB 4:4:4 + YCrCb 4:4:4
+            10 = RGB 4:4:4 + YCrCb 4:2:2
+            11 = RGB 4:4:4 + YCrCb 4:4:4 + YCrCb 4:2:2
+   Analog:
+            00 = monochrome
+            01 = RGB colour;
+            10 = non-RGB multicolour
+            11 = undefined
    Bit 2	Standard sRGB colour space. Bytes 25-34 must contain
 		  sRGB standard values.
    Bit 1	Preferred timing mode specified in descriptor block 1.
    Bit 0	GTF supported with default parameter values. */
-dsp_features:	.byte	0xea
+dsp_features:	.byte	DPMS_SUPPORT|0x0a
 
 /* Chromaticity coordinates. */
 /* Red and green least-significant bits
@@ -122,23 +174,23 @@ dsp_features:	.byte	0xea
    Bits 5-4	Red y value least-significant 2 bits
    Bits 3-2	Green x value lst-significant 2 bits
    Bits 1-0	Green y value least-significant 2 bits */
-red_green_lsb:	.byte	0x5e
+red_green_lsb:	.byte	0x07
 
 /* Blue and white least-significant 2 bits */
-blue_white_lsb:	.byte	0xc0
+blue_white_lsb:	.byte	0xf5
 
 /* Red x value most significant 8 bits.
    0-255 encodes 0-0.996 (255/256); 0-0.999 (1023/1024) with lsbits */
-red_x_msb:	.byte	0xa4
+red_x_msb:	.byte	0x9a
 
 /* Red y value most significant 8 bits */
-red_y_msb:	.byte	0x59
+red_y_msb:	.byte	0x56
 
 /* Green x and y value most significant 8 bits */
-green_x_y_msb:	.byte	0x4a,0x98
+green_x_y_msb:	.byte	0x4e,0x86
 
 /* Blue x and y value most significant 8 bits */
-blue_x_y_msb:	.byte	0x25,0x20
+blue_x_y_msb:	.byte	0x26,0x1e
 
 /* Default white point x and y value most significant 8 bits */
 white_x_y_msb:	.byte	0x50,0x54
@@ -170,11 +222,16 @@ estbl_timing3:	.byte	ESTABLISHED_TIMING3_BITS
 
 /* Standard timing */
 /* X resolution, less 31, divided by 8 (256-2288 pixels) */
-std_xres:	.byte	(XPIX/8)-31
+// std_xres:   .byte   (XPIX/8)-31
+
+// unused:
+std_xres:	.byte	0x01
+
 /* Y resolution, X:Y pixel ratio
    Bits 7-6	X:Y pixel ratio: 00=16:10; 01=4:3; 10=5:4; 11=16:9.
    Bits 5-0	Vertical frequency, less 60 (60-123 Hz) */
-std_vres:	.byte	(XY_RATIO<<6)+VFREQ-60
+// std_vres:	.byte	(XY_RATIO<<6)+VFREQ-60
+std_vres:	.byte	0x01
 		.fill	7,2,0x0101	/* Unused */
 
 descriptor1:
@@ -202,9 +259,15 @@ y_msbs:		.byte	msbs2(YPIX,YBLANK)
 x_snc_off_lsb:	.byte	XOFFSET&0xff
 /* Horizontal sync pulse width pixels 8 lsbits (0-1023) */
 x_snc_pls_lsb:	.byte	XPULSE&0xff
+<<<<<<< HEAD
 /* Bits 7-4 	Vertical sync offset lines 4 lsbits (0-63)
    Bits 3-0 	Vertical sync pulse width lines 4 lsbits (0-63) */
 y_snc_lsb:	.byte	lsbs2(YOFFSET, YPULSE)
+=======
+/* Bits 7-4 	Vertical sync offset lines 4 lsbits
+   Bits 3-0 	Vertical sync pulse width lines 4 lsbits */
+y_snc_lsb:	.byte	((YOFFSET&0xf)<<4)|(YPULSE&0xf)
+>>>>>>> zigmars/master
 /* Bits 7-6 	Horizontal sync offset pixels 2 msbits
    Bits 5-4 	Horizontal sync pulse width pixels 2 msbits
    Bits 3-2 	Vertical sync offset lines 2 msbits
