@@ -170,23 +170,23 @@ dsp_features:	.byte	DPMS_SUPPORT|0x0a
    Bits 5-4	Red y value least-significant 2 bits
    Bits 3-2	Green x value lst-significant 2 bits
    Bits 1-0	Green y value least-significant 2 bits */
-red_green_lsb:	.byte	0x07
+red_green_lsb:	.byte	0x5e
 
 /* Blue and white least-significant 2 bits */
-blue_white_lsb:	.byte	0xf5
+blue_white_lsb:	.byte	0xc0
 
 /* Red x value most significant 8 bits.
    0-255 encodes 0-0.996 (255/256); 0-0.999 (1023/1024) with lsbits */
-red_x_msb:	.byte	0x9a
+red_x_msb:	.byte	0xa4
 
 /* Red y value most significant 8 bits */
-red_y_msb:	.byte	0x56
+red_y_msb:	.byte	0x59
 
 /* Green x and y value most significant 8 bits */
-green_x_y_msb:	.byte	0x4e,0x86
+green_x_y_msb:	.byte	0x4a,0x98
 
 /* Blue x and y value most significant 8 bits */
-blue_x_y_msb:	.byte	0x26,0x1e
+blue_x_y_msb:	.byte	0x25,0x20
 
 /* Default white point x and y value most significant 8 bits */
 white_x_y_msb:	.byte	0x50,0x54
