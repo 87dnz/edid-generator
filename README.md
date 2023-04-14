@@ -1,3 +1,15 @@
+2023/04/14 FREE WING mod.
+==============
+
+http://www.neko.ne.jp/~freewing/hardware/hdmi_edid_dummy_adapter_custom/
+
+Original
+* https://github.com/akatrevorjay/edid-generator
+
+Merged
+* https://github.com/zigmars/edid-generator
+* https://github.com/JeonghwaCho/edid-generator
+
 edid-generator
 ==============
 
