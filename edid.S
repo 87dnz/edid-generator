@@ -219,17 +219,23 @@ estbl_timing2:	.byte	ESTABLISHED_TIMING2_BITS
 estbl_timing3:	.byte	ESTABLISHED_TIMING3_BITS
 
 /* Standard timing */
+#define ENABLE_STANDARD_TIMING
+#ifdef ENABLE_STANDARD_TIMING
 /* X resolution, less 31, divided by 8 (256-2288 pixels) */
-// std_xres:   .byte   (XPIX/8)-31
-
-// unused:
-std_xres:	.byte	0x01
+std_xres:   .byte   (XPIX/8)-31
 
 /* Y resolution, X:Y pixel ratio
    Bits 7-6	X:Y pixel ratio: 00=16:10; 01=4:3; 10=5:4; 11=16:9.
    Bits 5-0	Vertical frequency, less 60 (60-123 Hz) */
-// std_vres:	.byte	(XY_RATIO<<6)+VFREQ-60
+std_vres:	.byte	(XY_RATIO<<6)+VFREQ-60
+
+#else
+// unused:
+std_xres:    .byte   0x01
 std_vres:	.byte	0x01
+
+#endif
+
 		.fill	7,2,0x0101	/* Unused */
 
 descriptor1:
