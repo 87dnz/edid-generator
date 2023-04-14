@@ -1,7 +1,7 @@
 /*
-   1024x768.S: EDID data set for standard 1024x768 60 Hz monitor
+   1856x1392.S: EDID data set for standard 1856x1392 60 Hz monitor
 
-   Copyright (C) 2011 Carsten Emde <C.Emde@osadl.org>
+   Copyright (C) 2012 Carsten Emde <C.Emde@osadl.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -23,21 +23,21 @@
 #define REVISION 3
 
 /* Display */
-#define CLOCK 65000 /* kHz */
-#define XPIX 1024
-#define YPIX 768
+#define CLOCK 218300 /* kHz */
+#define XPIX 1856
+#define YPIX 1392
 #define XY_RATIO XY_RATIO_4_3
-#define XBLANK 320
-#define YBLANK 38
-#define XOFFSET 8
-#define XPULSE 144
-#define YOFFSET (63+3)
-#define YPULSE (63+6)
-#define DPI 72
+#define XBLANK 672
+#define YBLANK 47
+#define XOFFSET 96
+#define XPULSE 224
+#define YOFFSET (63+1)
+#define YPULSE (63+3)
+#define DPI 96
 #define VFREQ 60 /* Hz */
-#define TIMING_NAME "HK_VU8C"
-#define ESTABLISHED_TIMING2_BITS 0x08 /* Bit 3 -> 1024x768 @60 Hz */
+#define TIMING_NAME "1856x1392"
+/* No ESTABLISHED_TIMINGx_BITS */
 #define HSYNC_POL 0
-#define VSYNC_POL 0
+#define VSYNC_POL 1
 
 #include "edid.S"

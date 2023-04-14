@@ -23,21 +23,21 @@
 #define REVISION 3
 
 /* Display */
-#define CLOCK 162000 /* kHz */
+#define CLOCK 161000 /* kHz */
 #define XPIX 1600
 #define YPIX 1200
 #define XY_RATIO XY_RATIO_4_3
 #define XBLANK 560
-#define YBLANK 50
-#define XOFFSET 64
-#define XPULSE 192
+#define YBLANK 42
+#define XOFFSET 104
+#define XPULSE 176
 #define YOFFSET (63+1)
 #define YPULSE (63+3)
 #define DPI 72
 #define VFREQ 60 /* Hz */
-#define TIMING_NAME "Linux UXGA"
+#define TIMING_NAME "1600x1200"
 /* No ESTABLISHED_TIMINGx_BITS */
-#define HSYNC_POL 1
+#define HSYNC_POL 0
 #define VSYNC_POL 1
 
 #include "edid.S"

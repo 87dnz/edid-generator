@@ -1,5 +1,5 @@
 /*
-   1024x768.S: EDID data set for standard 1024x768 60 Hz monitor
+   1280x768.S: EDID data set for standard 1280x768 60 Hz monitor
 
    Copyright (C) 2011 Carsten Emde <C.Emde@osadl.org>
 
@@ -23,21 +23,21 @@
 #define REVISION 3
 
 /* Display */
-#define CLOCK 65000 /* kHz */
-#define XPIX 1024
+#define CLOCK 80140 /* kHz */
+#define XPIX 1280
 #define YPIX 768
-#define XY_RATIO XY_RATIO_4_3
-#define XBLANK 320
-#define YBLANK 38
-#define XOFFSET 8
-#define XPULSE 144
-#define YOFFSET (63+3)
-#define YPULSE (63+6)
-#define DPI 72
+#define XY_RATIO XY_RATIO_16_9
+#define XBLANK 400
+#define YBLANK 27
+#define XOFFSET 64
+#define XPULSE 136
+#define YOFFSET (63+1)
+#define YPULSE (63+3)
+#define DPI 96
 #define VFREQ 60 /* Hz */
-#define TIMING_NAME "HK_VU8C"
-#define ESTABLISHED_TIMING2_BITS 0x08 /* Bit 3 -> 1024x768 @60 Hz */
+#define TIMING_NAME "1280x768"
+/* No ESTABLISHED_TIMINGx_BITS */
 #define HSYNC_POL 0
-#define VSYNC_POL 0
+#define VSYNC_POL 1
 
 #include "edid.S"

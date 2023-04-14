@@ -1,7 +1,8 @@
 /*
-   1024x768.S: EDID data set for standard 1024x768 60 Hz monitor
+   848x480.S: EDID data set for standard 848x480 60 Hz monitor
 
    Copyright (C) 2011 Carsten Emde <C.Emde@osadl.org>
+   Copyright (C) 2014 Linaro Limited
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -12,10 +13,6 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.
 */
 
 /* EDID */
@@ -23,21 +20,21 @@
 #define REVISION 3
 
 /* Display */
-#define CLOCK 65000 /* kHz */
-#define XPIX 1024
-#define YPIX 768
-#define XY_RATIO XY_RATIO_4_3
-#define XBLANK 320
-#define YBLANK 38
-#define XOFFSET 8
-#define XPULSE 144
-#define YOFFSET (63+3)
-#define YPULSE (63+6)
+#define CLOCK 31490 /* kHz */
+#define XPIX 848
+#define YPIX 480
+#define XY_RATIO XY_RATIO_16_9
+#define XBLANK 208
+#define YBLANK 17
+#define XOFFSET 16
+#define XPULSE 88
+#define YOFFSET (63+1)
+#define YPULSE (63+3)
 #define DPI 72
 #define VFREQ 60 /* Hz */
-#define TIMING_NAME "HK_VU8C"
-#define ESTABLISHED_TIMING2_BITS 0x08 /* Bit 3 -> 1024x768 @60 Hz */
+#define TIMING_NAME "848x480"
+/* No ESTABLISHED_TIMINGx_BITS */
 #define HSYNC_POL 0
-#define VSYNC_POL 0
+#define VSYNC_POL 1
 
 #include "edid.S"
