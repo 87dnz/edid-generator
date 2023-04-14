@@ -55,7 +55,9 @@
             0011 = HDMIb
             0100 = MDDI
             0101 = DisplayPort */
-#define VIDEO_PARAMS (VIDEO_TYPE_DIGITAL<<7)|0x20
+#define VIDEO_PARAMS_BIT_DEPTH_UNDEF 0
+#define VIDEO_PARAMS_VIDEO_IF_UNDEF  0
+#define VIDEO_PARAMS (VIDEO_TYPE_DIGITAL<<7)|(VIDEO_PARAMS_BIT_DEPTH_UNDEF<<4)|(VIDEO_PARAMS_VIDEO_IF_UNDEF)
 #else
 /* bit 6-5: video white and sync levels relative to blank */
 /* bit 4: Blank-to-black setup (pedestal) expected */
