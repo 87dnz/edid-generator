@@ -102,7 +102,7 @@ header:		.byte	0x00,0xff,0xff,0xff,0xff,0xff,0xff,0x00
 
 mfg_id:		.hword	swap16(mfgname2id(MFG_LNX1, MFG_LNX2, MFG_LNX3))
 
-prod_code:	.hword	1
+prod_code:	.hword	0
 
 /* Serial number. 32 bits, little endian. */
 serial_number:	.long	SERIAL
