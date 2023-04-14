@@ -86,14 +86,14 @@
 #endif
 
 #define mfgname2id(v1,v2,v3) \
-	((((v1-'@')&0x1f)<<10)+(((v2-'@')&0x1f)<<5)+((v3-'@')&0x1f))
-#define swap16(v1) ((v1>>8)+((v1&0xff)<<8))
-#define lsbs2(v1,v2) (((v1&0x0f)<<4)+(v2&0x0f))
-#define msbs2(v1,v2) ((((v1>>8)&0x0f)<<4)+((v2>>8)&0x0f))
+	(((((v1)-'@')&0x1f)<<10)+((((v2)-'@')&0x1f)<<5)+(((v3)-'@')&0x1f))
+#define swap16(v1) (((v1)>>8)+(((v1)&0xff)<<8))
+#define lsbs2(v1,v2) ((((v1)&0x0f)<<4)+((v2)&0x0f))
+#define msbs2(v1,v2) (((((v1)>>8)&0x0f)<<4)+(((v2)>>8)&0x0f))
 #define msbs4(v1,v2,v3,v4) \
-	((((v1>>8)&0x03)<<6)+(((v2>>8)&0x03)<<4)+\
-	(((v3>>4)&0x03)<<2)+((v4>>4)&0x03))
-#define pixdpi2mm(pix,dpi) ((pix*25)/dpi)
+	(((((v1)>>8)&0x03)<<6)+((((v2)>>8)&0x03)<<4)+\
+	((((v3)>>4)&0x03)<<2)+(((v4)>>4)&0x03))
+#define pixdpi2mm(pix,dpi) (((pix)*25)/(dpi))
 #define xsize pixdpi2mm(XPIX,DPI)
 #define ysize pixdpi2mm(YPIX,DPI)
 
