@@ -89,12 +89,8 @@
 #define lsbs2(v1,v2) (((v1&0x0f)<<4)+(v2&0x0f))
 #define msbs2(v1,v2) ((((v1>>8)&0x0f)<<4)+((v2>>8)&0x0f))
 #define msbs4(v1,v2,v3,v4) \
-<<<<<<< HEAD
 	((((v1>>8)&0x03)<<6)+(((v2>>8)&0x03)<<4)+\
 	(((v3>>4)&0x03)<<2)+((v4>>4)&0x03))
-=======
-	(((v1&0x300)>>2)+((v2&0x300)>>4)+((v3&0x300)>>6)+((v4&0x300)>>8))
->>>>>>> JeonghwaCho/master
 #define pixdpi2mm(pix,dpi) ((pix*25)/dpi)
 #define xsize pixdpi2mm(XPIX,DPI)
 #define ysize pixdpi2mm(YPIX,DPI)
@@ -104,12 +100,7 @@
 /* Fixed header pattern */
 header:		.byte	0x00,0xff,0xff,0xff,0xff,0xff,0xff,0x00
 
-<<<<<<< HEAD
 mfg_id:		.hword	swap16(mfgname2id(MFG_LNX1, MFG_LNX2, MFG_LNX3))
-=======
-# mfg_id:		.word	swap16(mfgname2id(MFG_LNX1, MFG_LNX2, MFG_LNX3))
-mfg_id:		.hword	swap16(mfgname2id('H', 'K', 'L'))
->>>>>>> JeonghwaCho/master
 
 prod_code:	.hword	0
 
@@ -140,11 +131,7 @@ revision:	.byte	REVISION	/* EDID revision, usually 3 (for 1.3) */
    Bit 1	Sync on green supported
    Bit 0	VSync pulse must be serrated when somposite or
 		  sync-on-green is used. */
-<<<<<<< HEAD
 video_parms:	.byte	VIDEO_PARAMS
-=======
-video_parms:	.byte	0x80
->>>>>>> JeonghwaCho/master
 
 /* Maximum horizontal image size, in centimetres
    (max 292 cm/115 in at 16:9 aspect ratio) */
