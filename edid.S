@@ -20,12 +20,12 @@
 
 
 /* Manufacturer */
-#define MFG_LNX1 'T'
-#define MFG_LNX2 'O'
-#define MFG_LNX3 'S'
+#define MFG_LNX1 'L'
+#define MFG_LNX2 'N'
+#define MFG_LNX3 'X'
 #define SERIAL 0
-#define YEAR 2017
-#define WEEK 12
+#define YEAR 2012
+#define WEEK 5
 
 /* EDID 1.3 standard definitions */
 #define XY_RATIO_16_10	0b00
