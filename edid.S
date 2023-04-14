@@ -68,7 +68,7 @@
 #define VIDEO_PARAMS 0x6d
 #endif
 
-#define DPMS_SUPPORT 0x00
+// #define DPMS_SUPPORT 0x00
 
 #ifndef DPMS_SUPPORT
 #define DPMS_SUPPORT 0xe0
