@@ -89,12 +89,8 @@
 #define lsbs2(v1,v2) (((v1&0x0f)<<4)+(v2&0x0f))
 #define msbs2(v1,v2) ((((v1>>8)&0x0f)<<4)+((v2>>8)&0x0f))
 #define msbs4(v1,v2,v3,v4) \
-<<<<<<< HEAD
 	((((v1>>8)&0x03)<<6)+(((v2>>8)&0x03)<<4)+\
 	(((v3>>4)&0x03)<<2)+((v4>>4)&0x03))
-=======
-	(((v1&0x300)>>2)|((v2&0x300)>>4)|((v3&0x300)>>6)|((v4&0x300)>>8))
->>>>>>> zigmars/master
 #define pixdpi2mm(pix,dpi) ((pix*25)/dpi)
 #define xsize pixdpi2mm(XPIX,DPI)
 #define ysize pixdpi2mm(YPIX,DPI)
@@ -259,15 +255,9 @@ y_msbs:		.byte	msbs2(YPIX,YBLANK)
 x_snc_off_lsb:	.byte	XOFFSET&0xff
 /* Horizontal sync pulse width pixels 8 lsbits (0-1023) */
 x_snc_pls_lsb:	.byte	XPULSE&0xff
-<<<<<<< HEAD
 /* Bits 7-4 	Vertical sync offset lines 4 lsbits (0-63)
    Bits 3-0 	Vertical sync pulse width lines 4 lsbits (0-63) */
 y_snc_lsb:	.byte	lsbs2(YOFFSET, YPULSE)
-=======
-/* Bits 7-4 	Vertical sync offset lines 4 lsbits
-   Bits 3-0 	Vertical sync pulse width lines 4 lsbits */
-y_snc_lsb:	.byte	((YOFFSET&0xf)<<4)|(YPULSE&0xf)
->>>>>>> zigmars/master
 /* Bits 7-6 	Horizontal sync offset pixels 2 msbits
    Bits 5-4 	Horizontal sync pulse width pixels 2 msbits
    Bits 3-2 	Vertical sync offset lines 2 msbits
