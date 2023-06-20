@@ -38,28 +38,37 @@
 #define VIDEO_TYPE_DIGITAL 1
 #endif
 
-#if VIDEO_TYPE_DIGITAL==1
-
+/*----------------------------------------------------------------------------*/
 /* bit 6-4: bit depth
             000 = undefined
-            001 = 6 
-            010 = 8 
+            001 = 6
+            010 = 8
             011 = 10
             100 = 12
             101 = 14
             110 = 16 bits per color
             111 = reserved */
+#ifndef VIDEO_PARAMS_BIT_DEPTH_BITS
+#define VIDEO_PARAMS_BIT_DEPTH_BITS 0
+#endif
 /* bit 3-0: video interface
-            0000 = undefined 
+            0000 = undefined
+						0001 = DVI
             0010 = HDMIa
             0011 = HDMIb
             0100 = MDDI
             0101 = DisplayPort */
-#define VIDEO_PARAMS_BIT_DEPTH_UNDEF 0
-#define VIDEO_PARAMS_VIDEO_IF_UNDEF  0
-#define VIDEO_PARAMS (VIDEO_TYPE_DIGITAL<<7)|(VIDEO_PARAMS_BIT_DEPTH_UNDEF<<4)|(VIDEO_PARAMS_VIDEO_IF_UNDEF)
+#ifndef VIDEO_PARAMS_VIDEO_IF_BITS
+#define VIDEO_PARAMS_VIDEO_IF_BITS 0
+#endif
+#if VIDEO_TYPE_DIGITAL==1
+#define VIDEO_PARAMS (VIDEO_TYPE_DIGITAL<<7)|(VIDEO_PARAMS_BIT_DEPTH_BITS<<4)|(VIDEO_PARAMS_VIDEO_IF_BITS)
 #else
-/* bit 6-5: video white and sync levels relative to blank */
+/* bit 6-5: video white and sync levels relative to blank
+						00 = +0.7/−0.3 V
+						01 = +0.714/−0.286 V
+						10 = +1.0/−0.4 V
+						11 = +0.7/0 V (EVC) */
 /* bit 4: Blank-to-black setup (pedestal) expected */
 /* bit 3: Separate sync supported */
 /* bit 2: Composite sync (on HSync) supported */
@@ -67,6 +76,8 @@
 /* bit 0: VSync pulse must be serrated when composite or sync-on-green is used */
 #define VIDEO_PARAMS 0x6d
 #endif
+/*----------------------------------------------------------------------------*/
+
 
 // #define DPMS_SUPPORT 0x00
 
@@ -149,7 +160,7 @@ gamma:		.byte	120
 /* Bit 7	DPMS standby supported
    Bit 6	DPMS suspend supported
    Bit 5	DPMS active-off supported
-   Bits 4-3	Display type: 
+   Bits 4-3	Display type:
    Digital:
             00 = RGB 4:4:4
             01 = RGB 4:4:4 + YCrCb 4:4:4

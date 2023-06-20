@@ -16,7 +16,7 @@ clean:
 	cc -c -DCRC="0x00" -o $@ $^
 
 %.bin.nocrc:	%.o
-	objcopy -Obinary $^ $@
+	objcopy -j .data -Obinary $^ $@
 
 %.crc:	%.bin.nocrc
 	cat $^ | edid-decode \
@@ -26,7 +26,7 @@ clean:
 	cc -c -DCRC="$$(cat $*.crc)" -o $@ $*.S
 
 %.bin:	%.p
-	objcopy -Obinary $^ $@
+	objcopy -j .data -Obinary $^ $@
 
 %.bin.ihex:	%.p
 	objcopy -Oihex $^ $@
@@ -34,4 +34,3 @@ clean:
 
 %.c:	%.bin
 	@echo "{" >$@; hexdump -f hex $^ >>$@; echo "};" >>$@
-

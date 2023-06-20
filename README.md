@@ -1,3 +1,65 @@
+```
+git clone git@github.com:87dnz/edid-generator.git
+cd edid-generator
+```
+
+get desired __VIC number__ from [EIA/CEA-861 standard resolutions and timings ](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data#CEA_EDID_Timing_Extension_data_format_-_Version_3) table (e.g. VIC 63 for 1920 x 1080 @ 120 Hz)
+
+```
+edid-decode -X --vic 63 > 1080p120.Modeline
+```
+
+in `1080p120.Modeline` : change `"1920x1080_120.00"` to a shorter name (12 characters max) like `"1080p120"`
+
+```
+./modeline2edid 1080p120.Modeline
+echo '#define CRC 0x00' >> 1080p120.S
+echo '#define TIMING_NAME "1080p120"' >> 1080p120.S
+ls
+```
+
+you should see files `1080p120.Modeline , 1080p120.S , Makefile , edid.S , hex` in current folder
+
+in `1080p120.S` : ensure that :
+
+- `TIMING_NAME` value is 12 characters max
+
+- `VFREQ` value is `120` (for 120 Hz)
+
+- `HSYNC_POL` value is `1` (for +Hsync) or `0` (for -Hsync)
+
+- `VSYNC_POL` value is `1` (for +Vsync) or `0` (for -Vsync)
+
+- `DPI` value matches your monitor display size ([DPI Calculator](https://www.sven.de/dpi/))
+
+```
+make
+edid-decode 1080p120.bin
+```
+
+you should see `Checksum: 0x00 (should be <GoodHexValue>)`
+
+in `1080p120.S` : replace value for `CRC` with that good hex value
+
+```
+make clean
+make
+```
+
+the file `1080p120.bin` is your new EDID
+
+`edid-decode 1080p120.bin`
+
+you should not see any error
+
+---
+
+forked from [FREEWING-JP/edid-generator](https://github.com/FREEWING-JP/edid-generator)
+
+orginial README below
+
+---
+
 2023/04/14 FREE WING mod.
 ==============
 
