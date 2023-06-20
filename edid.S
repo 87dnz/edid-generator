@@ -81,7 +81,7 @@
 
 // #define DPMS_SUPPORT 0x00
 #ifndef DPMS_SUPPORT
-#define DPMS_SUPPORT 0xe0
+#define DPMS_SUPPORT 0xea
 #endif
 
 /* Provide defaults for the timing bits */
@@ -171,7 +171,7 @@ gamma:		.byte	120
 		  sRGB standard values.
    Bit 1	Preferred timing mode specified in descriptor block 1.
    Bit 0	GTF supported with default parameter values. */
-dsp_features:	.byte	DPMS_SUPPORT|0x0a
+dsp_features:	.byte	DPMS_SUPPORT
 
 /* Chromaticity coordinates. */
 /* Red and green least-significant bits
