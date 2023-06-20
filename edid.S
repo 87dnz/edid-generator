@@ -80,7 +80,6 @@
 
 
 // #define DPMS_SUPPORT 0x00
-
 #ifndef DPMS_SUPPORT
 #define DPMS_SUPPORT 0xe0
 #endif
@@ -96,15 +95,12 @@
 #define ESTABLISHED_TIMING3_BITS 0x00
 #endif
 
-#define mfgname2id(v1,v2,v3) \
-	(((((v1)-'@')&0x1f)<<10)+((((v2)-'@')&0x1f)<<5)+(((v3)-'@')&0x1f))
-#define swap16(v1) (((v1)>>8)+(((v1)&0xff)<<8))
-#define lsbs2(v1,v2) ((((v1)&0x0f)<<4)+((v2)&0x0f))
-#define msbs2(v1,v2) (((((v1)>>8)&0x0f)<<4)+(((v2)>>8)&0x0f))
-#define msbs4(v1,v2,v3,v4) \
-	(((((v1)>>8)&0x03)<<6)+((((v2)>>8)&0x03)<<4)+\
-	((((v3)>>4)&0x03)<<2)+(((v4)>>4)&0x03))
-#define pixdpi2mm(pix,dpi) (((pix)*25)/(dpi))
+#define mfgname2id(v1,v2,v3) ((((v1-'@')&0x1f)<<10)+(((v2-'@')&0x1f)<<5)+((v3-'@')&0x1f))
+#define swap16(v1) ((v1>>8)+((v1&0xff)<<8))
+#define lsbs2(v1,v2) (((v1&0x0f)<<4)+(v2&0x0f))
+#define msbs2(v1,v2) ((((v1>>8)&0x0f)<<4)+((v2>>8)&0x0f))
+#define msbs4(v1,v2,v3,v4) ((((v1>>8)&0x03)<<6)+(((v2>>8)&0x03)<<4)+(((v3>>4)&0x03)<<2)+((v4>>4)&0x03))
+#define pixdpi2mm(pix,dpi) ((pix*25)/dpi)
 #define xsize pixdpi2mm(XPIX,DPI)
 #define ysize pixdpi2mm(YPIX,DPI)
 
@@ -233,17 +229,17 @@ estbl_timing3:	.byte	ESTABLISHED_TIMING3_BITS
 #define ENABLE_STANDARD_TIMING
 #ifdef ENABLE_STANDARD_TIMING
 /* X resolution, less 31, divided by 8 (256-2288 pixels) */
-std_xres:   .byte   (XPIX/8)-31
+std_xres: .byte (XPIX/8)-31
 
 /* Y resolution, X:Y pixel ratio
    Bits 7-6	X:Y pixel ratio: 00=16:10; 01=4:3; 10=5:4; 11=16:9.
    Bits 5-0	Vertical frequency, less 60 (60-123 Hz) */
-std_vres:	.byte	(XY_RATIO<<6)+VFREQ-60
+std_vres: .byte (XY_RATIO<<6)+VFREQ-60
 
 #else
 // unused:
-std_xres:    .byte   0x01
-std_vres:	.byte	0x01
+std_xres: .byte 0x01
+std_vres: .byte 0x01
 
 #endif
 
