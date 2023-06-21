@@ -226,7 +226,7 @@ estbl_timing2:	.byte	ESTABLISHED_TIMING2_BITS
 estbl_timing3:	.byte	ESTABLISHED_TIMING3_BITS
 
 /* Standard timing */
-#define ENABLE_STANDARD_TIMING
+// #define ENABLE_STANDARD_TIMING
 #ifdef ENABLE_STANDARD_TIMING
 /* X resolution, less 31, divided by 8 (256-2288 pixels) */
 std_xres: .byte (XPIX/8)-31
